@@ -1,8 +1,40 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import Ref from './Ref';
 import Bts from './Bts';
+import UseMemoTest from './UseMemoTest';
+import { useThrottle } from './hooks/useThrottle';
+
+const hardCalculate = (number) => {
+  console.log('hardCalculate called');
+  for (let i = 0; i < 1000000000; i++) {}
+  return number + 10000;
+}
+
+function hackLottoNumbers() {
+  const lottoNumbers = [];
+
+  for (let i = 0; i < 6; i++) {
+    const randomNumber = Math.floor(Math.random() * 45) + 1;
+    lottoNumbers.push(randomNumber);
+  }
+
+  return numbers;
+  
+}
 
 const App = () => {
+
+  const [lottoNumbers, setLottoNumbers] = useState([0, 0, 0, 0, 0, 0]);
+  const handleClick = useThrottle(() => {
+    const result = hackLottoNumbers()
+    setLottoNumbers(result);
+  }, 1000)
+  const [hardNumber, setHardNumber] = useState(1);
+
+  const hardSum = useMemo(() => {
+    return hardCalculate(hardNumber);
+  }, [hardNumber]);
+
   const bts = [
     {
       id: 'st001',
@@ -28,6 +60,13 @@ const App = () => {
     <div>
       <Ref />
       <Bts bts={bts} />
+      <h3>어려운 계산기</h3>
+      <input type="number"
+             value={hardNumber}
+             onChange={(e) => setHardNumber(parseInt(e.target.value))}
+              />
+      <span>계산 결과 : {hardSum}</span>
+      <UseMemoTest />
     </div>
   );
 };
