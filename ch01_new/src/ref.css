@@ -1,0 +1,11 @@
+body {
+  padding: 50px;
+}
+
+.success {
+  background-color: lightgreen;
+}
+
+.failure {
+  background-color: lightcoral;
+}
