@@ -45,6 +45,9 @@ function test() {
 ```
 - [x] this is a complete item
 - [ ] this is an incomplete item
+- [x] 체크박스 테스트
+
+---
 
 테이블 생성
 
