@@ -3,6 +3,8 @@ import Ref from './Ref';
 import Bts from './Bts';
 import UseMemoTest from './UseMemoTest';
 import { useThrottle } from './hooks/useThrottle';
+import UserCallBack from './UserCallBack';
+import BoxSize from './BoxSize';
 
 const hardCalculate = (number) => {
   console.log('hardCalculate called');
@@ -25,10 +27,12 @@ function hackLottoNumbers() {
 const App = () => {
 
   const [lottoNumbers, setLottoNumbers] = useState([0, 0, 0, 0, 0, 0]);
+
   const handleClick = useThrottle(() => {
     const result = hackLottoNumbers()
     setLottoNumbers(result);
-  }, 1000)
+  }, 1000);
+
   const [hardNumber, setHardNumber] = useState(1);
 
   const hardSum = useMemo(() => {
@@ -58,13 +62,15 @@ const App = () => {
   }
   return (
     <div>
+      <BoxSize />
+      <UserCallBack />
       <Ref />
       <Bts bts={bts} />
       <h3>어려운 계산기</h3>
       <input type="number"
              value={hardNumber}
              onChange={(e) => setHardNumber(parseInt(e.target.value))}
-              />
+             autoComplete="off" />
       <span>계산 결과 : {hardSum}</span>
       <UseMemoTest />
     </div>
